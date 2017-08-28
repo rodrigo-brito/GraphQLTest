@@ -1,0 +1,13 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/graphql-go/graphql",
+			"repository": "https://github.com/graphql-go/graphql",
+			"vcs": "git",
+			"revision": "ed4c4d8ca46cd2d617f560b949fb663c48c05601",
+			"branch": "master",
+			"notests": true
+		}
+	]
+}
