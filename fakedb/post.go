@@ -1,12 +1,24 @@
 package fakedb
 
-import (
-	"github.com/rodrigo-brito/GraphQLTest/model"
+var (
+	nextPostID int64 = 0
 )
+
+type Post struct {
+	ID      int64  `json:"id"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
+	User    *User  `json:"user"`
+}
 
 type PostRepository struct{}
 
-func (p *PostRepository) Get(ID int64) *model.Post {
+func GeneratePostID() int64 {
+	nextPostID++
+	return nextPostID
+}
+
+func (p *PostRepository) Get(ID int64) *Post {
 	for _, post := range Posts {
 		if post.ID == ID {
 			return post
@@ -15,11 +27,11 @@ func (p *PostRepository) Get(ID int64) *model.Post {
 	return nil
 }
 
-func (p *PostRepository) All() []*model.Post {
+func (p *PostRepository) All() []*Post {
 	return Posts
 }
 
-func (p *PostRepository) Save(post *model.Post) {
+func (p *PostRepository) Save(post *Post) {
 	Posts = append(Posts, post)
 }
 
@@ -30,6 +42,15 @@ func (p *PostRepository) indexOf(ID int64) int {
 		}
 	}
 	return -1
+}
+
+func (p *PostRepository) ByUserID(ID int64) (result []*Post) {
+	for _, post := range Posts {
+		if post.User != nil && post.User.ID == ID {
+			result = append(result, post)
+		}
+	}
+	return
 }
 
 func (p *PostRepository) Delete(ID int64) error {

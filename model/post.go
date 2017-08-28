@@ -3,28 +3,15 @@ package model
 import "github.com/graphql-go/graphql"
 
 var (
-	postType   *graphql.Object
-	nextPostID int64
+	PostType *graphql.Object
 )
 
 func init() {
 	initPostType()
 }
 
-type Post struct {
-	ID      int64
-	Title   string
-	Content string
-	User    *User
-}
-
-func GetPostID() int64 {
-	nextPostID++
-	return nextPostID
-}
-
 func initPostType() {
-	postType = graphql.NewObject(graphql.ObjectConfig{
+	PostType = graphql.NewObject(graphql.ObjectConfig{
 		Name: "Post",
 		Fields: graphql.Fields{
 			"id": &graphql.Field{
